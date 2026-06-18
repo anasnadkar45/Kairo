@@ -1,3 +1,5 @@
+import Sidebar from '@/components/layout/protected/sidebar'
+import Topbar from '@/components/layout/protected/topbar'
 import { auth } from '@/lib/auth'
 import db from '@/lib/db'
 import { headers } from 'next/headers'
@@ -20,9 +22,9 @@ const layout = async ({ children }: { children: ReactNode }) => {
         },
         select: {
             onboardingCompleted: true,
-            workspaceName:true,
-            calendarConnected:true,
-            gmailConnected:true
+            workspaceName: true,
+            calendarConnected: true,
+            gmailConnected: true
         }
     })
 
@@ -35,7 +37,17 @@ const layout = async ({ children }: { children: ReactNode }) => {
         redirect("/onboarding");
     }
     return (
-        <div>{children}</div>
+        <div className="flex min-h-screen w-full overflow-hidden bg-secondary">
+            <Sidebar />
+
+            <main className="flex min-w-0 flex-1 flex-col">
+                <Topbar />
+
+                <section className="flex-1 overflow-y-auto bg-background rounded-lg m mr-2 mb-2">
+                    {children}
+                </section>
+            </main>
+        </div>
     )
 }
 
